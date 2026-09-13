@@ -452,7 +452,7 @@
                     <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
                 </div>
                 <h3>Fast Delivery</h3>
-                <p style="color: var(--muted); margin-top: 10px; font-size: 0.9rem;">Free express shipping on all orders over $50.</p>
+                <p style="color: var(--muted); margin-top: 10px; font-size: 0.9rem;">Free express shipping on all orders over ₹50.</p>
             </div>
             <div class="feature-item">
                 <div class="feature-icon">
@@ -541,7 +541,7 @@
                     : '';
                     
                 const oldPriceHtml = product.oldPrice 
-                    ? `<span class="product-old-price">$${product.oldPrice.toFixed(2)}</span>` 
+                    ? `<span class="product-old-price">${formatCurrency(product.oldPrice)}</span>`
                     : '';
 
                 card.innerHTML = `
@@ -568,7 +568,7 @@
                             <span class="product-reviews">(${product.reviews})</span>
                         </div>
                         <div class="product-price-row">
-                            <span class="product-price">$${product.price.toFixed(2)}</span>
+                            <span class="product-price">${formatCurrency(product.price)}</span>
                             ${oldPriceHtml}
                         </div>
                     </div>

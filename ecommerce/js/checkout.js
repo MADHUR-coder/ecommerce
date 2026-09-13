@@ -50,7 +50,7 @@ function renderCheckoutSummary() {
                     <div class="checkout-item-name">${item.name}</div>
                     <div class="checkout-item-meta">Qty: ${item.quantity}</div>
                 </div>
-                <div class="checkout-item-price">$${itemTotal.toFixed(2)}</div>
+                <div class="checkout-item-price">${formatCurrency(itemTotal)}</div>
             </div>
         `;
     });
@@ -68,10 +68,10 @@ function renderCheckoutSummary() {
     const discount = subtotal > 200 ? subtotal * 0.05 : 0;
     const total = subtotal + shippingCost - discount;
 
-    document.getElementById('checkout-subtotal').textContent = `$${subtotal.toFixed(2)}`;
-    document.getElementById('checkout-shipping').textContent = shippingCost === 0 ? 'Free' : `$${shippingCost.toFixed(2)}`;
-    document.getElementById('checkout-discount').textContent = `-$${discount.toFixed(2)}`;
-    document.getElementById('checkout-total').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('checkout-subtotal').textContent = formatCurrency(subtotal);
+    document.getElementById('checkout-shipping').textContent = shippingCost === 0 ? 'Free' : formatCurrency(shippingCost);
+    document.getElementById('checkout-discount').textContent = `-${formatCurrency(discount)}`;
+    document.getElementById('checkout-total').textContent = formatCurrency(total);
 }
 
 function initPaymentToggle() {
@@ -148,7 +148,7 @@ function renderOrderSuccess() {
                         </div>
                         <div style="text-align: right;">
                             <span style="color: var(--muted); display: block; font-size: 0.9rem;">Total Paid</span>
-                            <strong style="font-size: 1.1rem;">$${orderData.total.toFixed(2)}</strong>
+                            <strong style="font-size: 1.1rem;">${formatCurrency(orderData.total)}</strong>
                         </div>
                     </div>
                     
@@ -157,7 +157,7 @@ function renderOrderSuccess() {
                         ${orderData.items.map(item => `
                             <li style="display: flex; justify-content: space-between; font-size: 0.95rem;">
                                 <span>${item.quantity}x ${item.name}</span>
-                                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                                <span>${formatCurrency(item.price * item.quantity)}</span>
                             </li>
                         `).join('')}
                     </ul>

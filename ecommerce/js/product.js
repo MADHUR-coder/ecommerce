@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Render Product Details
     const oldPriceHtml = product.oldPrice 
-        ? `<div class="pd-old-price">$${product.oldPrice.toFixed(2)}</div>` 
+        ? `<div class="pd-old-price">${formatCurrency(product.oldPrice)}</div>`
         : '';
         
     const discountHtml = product.discount > 0 
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
 
             <div class="pd-price-container">
-                <div class="pd-price">$${product.price.toFixed(2)}</div>
+                <div class="pd-price">${formatCurrency(product.price)}</div>
                 ${oldPriceHtml}
                 ${discountHtml}
             </div>
@@ -160,7 +160,7 @@ function renderRelatedProducts(currentProduct) {
     
     related.forEach(product => {
         const oldPriceHtml = product.oldPrice 
-            ? `<span class="product-old-price">$${product.oldPrice.toFixed(2)}</span>` 
+            ? `<span class="product-old-price">${formatCurrency(product.oldPrice)}</span>`
             : '';
 
         grid.innerHTML += `
@@ -172,7 +172,7 @@ function renderRelatedProducts(currentProduct) {
                     <span class="product-category">${product.category}</span>
                     <a href="product.html?id=${product.id}" class="product-name">${product.name}</a>
                     <div class="product-price-row">
-                        <span class="product-price">$${product.price.toFixed(2)}</span>
+                        <span class="product-price">${formatCurrency(product.price)}</span>
                         ${oldPriceHtml}
                     </div>
                 </div>

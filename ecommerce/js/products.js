@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 : '';
                 
             const oldPriceHtml = product.oldPrice 
-                ? `<span class="product-old-price">$${product.oldPrice.toFixed(2)}</span>` 
+                ? `<span class="product-old-price">${formatCurrency(product.oldPrice)}</span>`
                 : '';
 
             card.innerHTML = `
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="product-reviews">(${product.reviews})</span>
                     </div>
                     <div class="product-price-row">
-                        <span class="product-price">$${product.price.toFixed(2)}</span>
+                        <span class="product-price">${formatCurrency(product.price)}</span>
                         ${oldPriceHtml}
                     </div>
                 </div>
