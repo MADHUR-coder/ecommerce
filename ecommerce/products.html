@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Aura</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/products.css">
+</head>
+<body>
+
+    <!-- Header (Same as index.html) -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="brand">Aura.</a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="products.html" style="color: var(--primary);">Shop</a>
+                <a href="products.html?category=Electronics">Electronics</a>
+                <a href="products.html?category=Fashion">Fashion</a>
+                <a href="#">Deals</a>
+            </nav>
+            <div class="nav-icons">
+                <a href="products.html" class="icon-btn" aria-label="Search">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </a>
+                <a href="#" class="icon-btn" aria-label="Wishlist">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                </a>
+                <a href="cart.html" class="icon-btn" aria-label="Cart">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <span class="cart-count" style="display: none;">0</span>
+                </a>
+                <a href="login.html" class="icon-btn" id="nav-login" aria-label="User Account">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                </a>
+                <button class="icon-btn mobile-menu-btn" aria-label="Menu">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>Shop All Products</h1>
+            <p>Discover our curated collection of premium goods.</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container products-layout">
+        
+        <!-- Sidebar Filters -->
+        <aside class="sidebar">
+            
+            <div class="filter-group">
+                <h3>Search</h3>
+                <input type="text" id="search-input" class="form-control" placeholder="Search products...">
+            </div>
+
+            <div class="filter-group">
+                <h3>Categories</h3>
+                <ul class="category-list" id="category-filter">
+                    <li><button class="category-btn active" data-category="All">All Categories</button></li>
+                    <li><button class="category-btn" data-category="Electronics">Electronics</button></li>
+                    <li><button class="category-btn" data-category="Fashion">Fashion</button></li>
+                    <li><button class="category-btn" data-category="Home">Home</button></li>
+                    <li><button class="category-btn" data-category="Beauty">Beauty</button></li>
+                    <li><button class="category-btn" data-category="Sports">Sports</button></li>
+                    <li><button class="category-btn" data-category="Accessories">Accessories</button></li>
+                </ul>
+            </div>
+
+            <div class="filter-group">
+                <h3>Price Range</h3>
+                <div class="price-inputs">
+                    <input type="number" id="min-price" class="form-control" placeholder="Min" min="0">
+                    <span>-</span>
+                    <input type="number" id="max-price" class="form-control" placeholder="Max" min="0">
+                </div>
+                <button id="apply-price-btn" class="btn btn-outline btn-block" style="margin-top: 10px;">Apply Price</button>
+            </div>
+            
+            <button id="reset-filters-btn" class="btn btn-outline btn-block" style="color: var(--danger); border-color: var(--danger);">Reset Filters</button>
+
+        </aside>
+
+        <!-- Product Listing -->
+        <section class="product-listing">
+            
+            <!-- Toolbar -->
+            <div class="listing-toolbar">
+                <div class="results-count">
+                    Showing <span id="product-count">0</span> products
+                </div>
+                <div class="sort-control">
+                    <label for="sort-select">Sort by:</label>
+                    <select id="sort-select" class="form-control" style="width: auto;">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name-asc">Name: A-Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div id="products-grid" class="products-grid">
+                <!-- Products dynamically injected here -->
+            </div>
+            
+            <!-- Empty State -->
+            <div id="empty-state" class="empty-state" style="display: none;">
+                <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h3>No products found</h3>
+                <p>Try adjusting your search or filters to find what you're looking for.</p>
+                <button id="clear-search-btn" class="btn btn-primary" style="margin-top: 15px;">Clear Filters</button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="brand" style="display: block; margin-bottom: var(--spacing-md);">Aura.</a>
+                    <p style="color: var(--muted); font-size: 0.9rem;">Elevating your lifestyle with premium products, unparalleled quality, and exceptional service.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Pinterest</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Aura E-Commerce. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/products.js"></script>
+</body>
+</html>

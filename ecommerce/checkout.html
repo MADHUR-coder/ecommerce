@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Aura</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/checkout.css">
+</head>
+<body>
+
+    <!-- Minimal Header for Checkout -->
+    <header class="header">
+        <div class="container navbar" style="justify-content: center;">
+            <a href="index.html" class="brand">Aura.</a>
+        </div>
+    </header>
+
+    <main class="container" style="padding: var(--spacing-xxl) 0;">
+        <h1 style="margin-bottom: var(--spacing-lg);">Checkout</h1>
+        
+        <div class="checkout-layout">
+            
+            <form id="checkout-form" class="checkout-form">
+                
+                <!-- Customer Info -->
+                <div class="form-section">
+                    <h2>1. Customer Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label class="form-label" for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery Address -->
+                <div class="form-section">
+                    <h2>2. Delivery Address</h2>
+                    <div class="form-grid">
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label class="form-label" for="address">Street Address</label>
+                            <input type="text" id="address" name="address" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="city">City</label>
+                            <input type="text" id="city" name="city" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="state">State / Province</label>
+                            <input type="text" id="state" name="state" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pincode">Pincode / ZIP</label>
+                            <input type="text" id="pincode" name="pincode" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shipping Options -->
+                <div class="form-section">
+                    <h2>3. Shipping Method</h2>
+                    <div class="radio-group">
+                        <label class="radio-card">
+                            <input type="radio" name="shipping" value="standard" checked>
+                            <div class="radio-content">
+                                <span class="radio-title">Standard Delivery</span>
+                                <span class="radio-desc">3-5 business days</span>
+                            </div>
+                            <span class="radio-price">$10.00</span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="shipping" value="express">
+                            <div class="radio-content">
+                                <span class="radio-title">Express Delivery</span>
+                                <span class="radio-desc">1-2 business days</span>
+                            </div>
+                            <span class="radio-price">$25.00</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Payment Options -->
+                <div class="form-section">
+                    <h2>4. Payment Method</h2>
+                    <div class="radio-group">
+                        <label class="radio-card">
+                            <input type="radio" name="payment" value="card" checked>
+                            <div class="radio-content">
+                                <span class="radio-title">Credit / Debit Card</span>
+                            </div>
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="payment" value="upi">
+                            <div class="radio-content">
+                                <span class="radio-title">UPI</span>
+                            </div>
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="payment" value="cod">
+                            <div class="radio-content">
+                                <span class="radio-title">Cash on Delivery</span>
+                            </div>
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </label>
+                    </div>
+                    
+                    <!-- Dummy Card Input Form -->
+                    <div id="card-details" class="card-details-form" style="margin-top: 15px;">
+                        <div class="form-group">
+                            <label class="form-label" for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" class="form-control" placeholder="0000 0000 0000 0000">
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="expiry">Expiry (MM/YY)</label>
+                                <input type="text" id="expiry" class="form-control" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="cvv">CVV</label>
+                                <input type="text" id="cvv" class="form-control" placeholder="123">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block" style="font-size: 1.1rem; padding: 1rem;">Place Order</button>
+            </form>
+
+            <aside class="checkout-summary">
+                <h3>Order Summary</h3>
+                <div class="checkout-items" id="checkout-items">
+                    <!-- Injected via JS -->
+                </div>
+                <div class="summary-divider"></div>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="checkout-subtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span id="checkout-shipping">$10.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Discount</span>
+                    <span id="checkout-discount" style="color: var(--success);">-$0.00</span>
+                </div>
+                <div class="summary-divider"></div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span id="checkout-total">$0.00</span>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>
