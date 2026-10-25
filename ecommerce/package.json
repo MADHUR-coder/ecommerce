@@ -1,0 +1,19 @@
+{
+  "name": "aura-ecommerce",
+  "version": "1.0.0",
+  "description": "Aura E-Commerce Storefront - Multi-page Vanilla JavaScript Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "ecommerce",
+    "javascript",
+    "starter",
+    "html5",
+    "css3"
+  ],
+  "author": "",
+  "license": "ISC"
+}
