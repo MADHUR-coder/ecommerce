@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="separator">/</span>
         <a href="products.html">Shop</a>
         <span class="separator">/</span>
-        <a href="products.html?category=${product.category}">${product.category}</a>
+        <a href="products.html?category=${encodeURIComponent(product.category)}">${escapeHtml(product.category)}</a>
         <span class="separator">/</span>
-        <span style="color: var(--text);">${product.name}</span>
+        <span style="color: var(--text);">${escapeHtml(product.name)}</span>
     `;
 
     // Render Product Details
@@ -53,20 +53,20 @@ document.addEventListener('DOMContentLoaded', () => {
         <!-- Left: Image Gallery -->
         <div class="product-gallery">
             <div class="main-image-container">
-                <img src="${product.image}" alt="${product.name}" class="main-image" id="main-image">
+                <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" class="main-image" id="main-image">
             </div>
             <!-- Thumbnails (Using the same image multiple times for demo) -->
             <div class="thumbnail-list">
-                <img src="${product.image}" class="thumbnail active" onclick="changeImage(this)">
-                <img src="${product.image}" class="thumbnail" onclick="changeImage(this)" style="filter: grayscale(100%);">
-                <img src="${product.image}" class="thumbnail" onclick="changeImage(this)" style="filter: sepia(100%);">
+                <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" class="thumbnail active" onclick="changeImage(this)">
+                <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" class="thumbnail" onclick="changeImage(this)" style="filter: grayscale(100%);">
+                <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" class="thumbnail" onclick="changeImage(this)" style="filter: sepia(100%);">
             </div>
         </div>
 
         <!-- Right: Product Info -->
         <div class="product-info-section">
-            <div class="pd-category">${product.category}</div>
-            <h1 class="pd-title">${product.name}</h1>
+            <div class="pd-category">${escapeHtml(product.category)}</div>
+            <h1 class="pd-title">${escapeHtml(product.name)}</h1>
             
             <div class="pd-rating">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${discountHtml}
             </div>
 
-            <p class="pd-description">${product.description}</p>
+            <p class="pd-description">${escapeHtml(product.description)}</p>
             
             ${stockStatus}
 
@@ -100,8 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <div class="pd-meta">
                 <div>SKU: <span>AUR-${product.id.toString().padStart(4, '0')}</span></div>
-                <div>Category: <span>${product.category}</span></div>
-                <div>Tags: <span>Premium, Modern, ${product.category}</span></div>
+                <div>Category: <span>${escapeHtml(product.category)}</span></div>
+                <div>Tags: <span>Premium, Modern, ${escapeHtml(product.category)}</span></div>
             </div>
         </div>
     `;
@@ -166,11 +166,11 @@ function renderRelatedProducts(currentProduct) {
         grid.innerHTML += `
             <div class="product-card">
                 <a href="product.html?id=${product.id}">
-                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" class="product-image">
                 </a>
                 <div class="product-info">
-                    <span class="product-category">${product.category}</span>
-                    <a href="product.html?id=${product.id}" class="product-name">${product.name}</a>
+                    <span class="product-category">${escapeHtml(product.category)}</span>
+                    <a href="product.html?id=${product.id}" class="product-name">${escapeHtml(product.name)}</a>
                     <div class="product-price-row">
                         <span class="product-price">${formatCurrency(product.price)}</span>
                         ${oldPriceHtml}

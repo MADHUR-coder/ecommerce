@@ -34,9 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
             cartItemEl.className = 'cart-item';
             
             cartItemEl.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" class="cart-item-image">
                 <div class="cart-item-info">
-                    <a href="product.html?id=${item.id}" class="cart-item-name">${item.name}</a>
+                    <a href="product.html?id=${item.id}" class="cart-item-name">${escapeHtml(item.name)}</a>
                     <span class="cart-item-price">${formatCurrency(item.price)}</span>
                 </div>
                 <div class="cart-item-qty">

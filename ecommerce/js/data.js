@@ -162,3 +162,17 @@ const products = [
         stock: 115
     }
 ];
+
+try {
+    const savedProducts = localStorage.getItem('aura_admin_products');
+    if (savedProducts) {
+        const parsedProducts = JSON.parse(savedProducts);
+        if (Array.isArray(parsedProducts)) {
+            products.splice(0, products.length, ...parsedProducts);
+        } else {
+            console.error('Saved admin product data is invalid; using the built-in demo catalog.');
+        }
+    }
+} catch (error) {
+    console.error('Unable to load saved admin product data:', error);
+}

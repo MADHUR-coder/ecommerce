@@ -1,5 +1,15 @@
 // Global Utility Functions
 
+function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, character => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    })[character]);
+}
+
 // Toast Notification
 function showToast(message) {
     let container = document.getElementById('toast-container');
@@ -38,6 +48,10 @@ function addToCart(productId, quantity = 1) {
     // Find product data
     const product = products.find(p => p.id === parseInt(productId));
     if (!product) return;
+    if (Number(product.stock) <= 0) {
+        showToast('This product is currently out of stock.');
+        return;
+    }
 
     const cart = getCart();
     const existingItem = cart.find(item => item.id === product.id);

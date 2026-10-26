@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin sign in | Aura</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-login-page">
+    <main class="admin-login-shell">
+        <a class="brand admin-login-brand" href="index.html">Aura<span>.</span></a>
+        <section class="admin-login-card" aria-labelledby="admin-login-title">
+            <div class="admin-login-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 3 4 7v5c0 5 3.4 8 8 9 4.6-1 8-4 8-9V7l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <p class="admin-eyebrow">AURA ADMIN</p>
+            <h1 id="admin-login-title">Sign in to your workspace</h1>
+            <p class="admin-login-copy">Use your administrator credentials to manage the store.</p>
+            <form id="admin-login-form" novalidate>
+                <div class="admin-field">
+                    <label for="admin-username">Email or username</label>
+                    <input id="admin-username" name="username" type="text" autocomplete="username" required maxlength="254" placeholder="you@example.com">
+                </div>
+                <div class="admin-field">
+                    <label for="admin-password">Password</label>
+                    <div class="admin-password-control">
+                        <input id="admin-password" name="password" type="password" autocomplete="current-password" required maxlength="1024" placeholder="Enter your password">
+                        <button id="admin-password-toggle" type="button" aria-label="Show password" aria-pressed="false">Show</button>
+                    </div>
+                </div>
+                <p id="admin-login-error" class="admin-form-message" role="alert" hidden></p>
+                <button id="admin-login-submit" class="admin-button admin-button-primary admin-login-submit" type="submit">
+                    <span>Sign in</span>
+                    <span class="admin-spinner" aria-hidden="true" hidden></span>
+                </button>
+            </form>
+            <p class="admin-login-security">Your session is protected by a server-side, HttpOnly cookie.</p>
+            <a class="admin-back-link" href="index.html">Back to Aura storefront</a>
+        </section>
+    </main>
+    <script src="js/admin-auth.js"></script>
+</body>
+</html>

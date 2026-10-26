@@ -45,9 +45,9 @@ function renderCheckoutSummary() {
 
         itemsContainer.innerHTML += `
             <div class="checkout-item">
-                <img src="${item.image}" alt="${item.name}" class="checkout-item-img">
+                <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" class="checkout-item-img">
                 <div class="checkout-item-info">
-                    <div class="checkout-item-name">${item.name}</div>
+                    <div class="checkout-item-name">${escapeHtml(item.name)}</div>
                     <div class="checkout-item-meta">Qty: ${item.quantity}</div>
                 </div>
                 <div class="checkout-item-price">${formatCurrency(itemTotal)}</div>
@@ -108,11 +108,25 @@ function handlePlaceOrder() {
         items: cart,
         total: total,
         customerName: document.getElementById('fullName').value,
-        email: document.getElementById('email').value
+        email: document.getElementById('email').value,
+        status: 'pending',
+        paymentStatus: 'pending',
+        paymentMethod: document.querySelector('input[name="payment"]:checked').value
     };
 
-    // Save order data to local storage for success page
-    localStorage.setItem('aura_last_order', JSON.stringify(orderData));
+    try {
+        // These browser-stored records are demo data, not confirmed payment data.
+        const storedOrders = localStorage.getItem('aura_orders');
+        const orders = storedOrders ? JSON.parse(storedOrders) : [];
+        if (!Array.isArray(orders)) throw new Error('Saved order history is not a list.');
+        orders.unshift(orderData);
+        localStorage.setItem('aura_orders', JSON.stringify(orders));
+        localStorage.setItem('aura_last_order', JSON.stringify(orderData));
+    } catch (error) {
+        console.error('Unable to save the demo order:', error);
+        showToast('We could not save this demo order in your browser. Please check browser storage and try again.');
+        return;
+    }
     
     // Clear cart
     localStorage.removeItem('aura_cart');
@@ -138,16 +152,16 @@ function renderOrderSuccess() {
                     <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
                 </div>
                 <h1 style="margin-bottom: var(--spacing-sm);">Order Placed Successfully!</h1>
-                <p style="color: var(--muted); margin-bottom: var(--spacing-xl);">Thank you for shopping with Aura, ${orderData.customerName.split(' ')[0]}. Your order has been received.</p>
+                <p style="color: var(--muted); margin-bottom: var(--spacing-xl);">Thank you for shopping with Aura, ${escapeHtml(orderData.customerName.split(' ')[0])}. Your order has been received.</p>
                 
                 <div style="background-color: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--spacing-lg); text-align: left; margin-bottom: var(--spacing-xl);">
                     <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: var(--spacing-md); margin-bottom: var(--spacing-md);">
                         <div>
                             <span style="color: var(--muted); display: block; font-size: 0.9rem;">Order Number</span>
-                            <strong style="font-size: 1.1rem;">${orderData.orderId}</strong>
+                            <strong style="font-size: 1.1rem;">${escapeHtml(orderData.orderId)}</strong>
                         </div>
                         <div style="text-align: right;">
-                            <span style="color: var(--muted); display: block; font-size: 0.9rem;">Total Paid</span>
+                            <span style="color: var(--muted); display: block; font-size: 0.9rem;">Order Total</span>
                             <strong style="font-size: 1.1rem;">${formatCurrency(orderData.total)}</strong>
                         </div>
                     </div>
@@ -156,7 +170,7 @@ function renderOrderSuccess() {
                     <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px;">
                         ${orderData.items.map(item => `
                             <li style="display: flex; justify-content: space-between; font-size: 0.95rem;">
-                                <span>${item.quantity}x ${item.name}</span>
+                                <span>${Number(item.quantity) || 0}x ${escapeHtml(item.name)}</span>
                                 <span>${formatCurrency(item.price * item.quantity)}</span>
                             </li>
                         `).join('')}
