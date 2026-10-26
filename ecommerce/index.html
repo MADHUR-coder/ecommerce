@@ -10,30 +10,49 @@
         /* Home Page Specific Styles */
         .hero {
             position: relative;
-            background-color: var(--surface);
+            background-color: #111827;
             overflow: hidden;
-            padding: var(--spacing-xxl) 0;
+            min-height: 500px;
+            color: white;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
             display: flex;
             align-items: center;
-            min-height: 500px;
+            isolation: isolate;
         }
-        
+
+        .hero-slide[hidden] {
+            display: none;
+        }
+
+        .hero-slide::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(90deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.62) 48%, rgba(15, 23, 42, 0.08) 100%);
+        }
+
         .hero-content {
             position: relative;
-            z-index: 10;
+            z-index: 1;
             max-width: 600px;
+            padding: var(--spacing-xxl) 0;
         }
         
         .hero-title {
             font-size: 3.5rem;
             margin-bottom: var(--spacing-md);
-            color: var(--text);
+            color: white;
             letter-spacing: -1px;
         }
         
         .hero-text {
             font-size: 1.1rem;
-            color: var(--muted);
+            color: rgba(255, 255, 255, 0.86);
             margin-bottom: var(--spacing-lg);
         }
         
@@ -44,14 +63,66 @@
         
         .hero-image {
             position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50%;
+            inset: 0;
+            z-index: -2;
+            width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center;
-            opacity: 0.9;
+        }
+
+        .hero-controls {
+            position: absolute;
+            z-index: 2;
+            left: 50%;
+            bottom: var(--spacing-lg);
+            width: min(100% - 2rem, var(--container-max));
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .hero-arrow,
+        .hero-dot {
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .hero-arrow {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .hero-dot {
+            width: 10px;
+            height: 10px;
+            padding: 0;
+            border-radius: var(--radius-full);
+        }
+
+        .hero-dot[aria-current="true"] {
+            width: 26px;
+            background: white;
+            border-color: white;
+        }
+
+        .hero-arrow:hover,
+        .hero-dot:hover {
+            background-color: rgba(255, 255, 255, 0.22);
+        }
+
+        .hero-arrow:focus-visible,
+        .hero-dot:focus-visible {
+            outline: 2px solid white;
+            outline-offset: 3px;
         }
 
         .section-header {
@@ -311,12 +382,17 @@
         }
 
         @media (max-width: 768px) {
-            .hero-image {
-                opacity: 0.2;
-                width: 100%;
+            .hero {
+                min-height: 460px;
+            }
+            .hero-slide::after {
+                background: linear-gradient(90deg, rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.4));
             }
             .hero-title {
                 font-size: 2.5rem;
+            }
+            .hero-controls {
+                bottom: var(--spacing-md);
             }
         }
     </style>
@@ -357,18 +433,53 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="E-commerce Lifestyle" class="hero-image">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Everything You Need.<br>One Place.</h1>
-                <p class="hero-text">Discover a curated collection of premium electronics, fashion, and home goods designed to elevate your everyday life.</p>
-                <div class="hero-buttons">
-                    <a href="products.html" class="btn btn-primary">Shop Now</a>
-                    <a href="#featured" class="btn btn-outline" style="background: white;">Explore Deals</a>
+    <!-- Hero Image Slider -->
+    <section class="hero" aria-label="Featured collections" data-hero-slider>
+        <article class="hero-slide" aria-roledescription="slide" aria-label="1 of 3">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="" class="hero-image">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Everything You Need.<br>One Place.</h1>
+                    <p class="hero-text">Discover a curated collection of premium electronics, fashion, and home goods designed to elevate your everyday life.</p>
+                    <div class="hero-buttons">
+                        <a href="products.html" class="btn btn-primary">Shop Now</a>
+                        <a href="#featured" class="btn btn-outline" style="background: white;">Explore Deals</a>
+                    </div>
                 </div>
             </div>
+        </article>
+        <article class="hero-slide" aria-roledescription="slide" aria-label="2 of 3" hidden>
+            <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="" class="hero-image">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-title">Made for Every<br>Adventure.</h2>
+                    <p class="hero-text">Find timeless fashion and everyday essentials, thoughtfully selected for wherever life takes you.</p>
+                    <div class="hero-buttons">
+                        <a href="products.html?category=Fashion" class="btn btn-primary">Shop Fashion</a>
+                        <a href="products.html" class="btn btn-outline" style="background: white;">Browse Everything</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <article class="hero-slide" aria-roledescription="slide" aria-label="3 of 3" hidden>
+            <img src="https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="" class="hero-image">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-title">Find Your<br>Focus.</h2>
+                    <p class="hero-text">Explore premium audio and electronics that bring more clarity to work, play, and everything in between.</p>
+                    <div class="hero-buttons">
+                        <a href="products.html?category=Electronics" class="btn btn-primary">Shop Electronics</a>
+                        <a href="#featured" class="btn btn-outline" style="background: white;">See Featured</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <div class="hero-controls" aria-label="Slider controls">
+            <button class="hero-arrow" type="button" data-hero-previous aria-label="Previous slide">&#8249;</button>
+            <button class="hero-dot" type="button" data-hero-slide="0" aria-label="Show slide 1" aria-current="true"></button>
+            <button class="hero-dot" type="button" data-hero-slide="1" aria-label="Show slide 2" aria-current="false"></button>
+            <button class="hero-dot" type="button" data-hero-slide="2" aria-label="Show slide 3" aria-current="false"></button>
+            <button class="hero-arrow" type="button" data-hero-next aria-label="Next slide">&#8250;</button>
         </div>
     </section>
 

@@ -85,10 +85,63 @@ function initMobileMenu() {
     }
 }
 
+function initHeroSlider() {
+    const slider = document.querySelector('[data-hero-slider]');
+    if (!slider) return;
+
+    const slides = Array.from(slider.querySelectorAll('.hero-slide'));
+    const dots = Array.from(slider.querySelectorAll('[data-hero-slide]'));
+    const previousButton = slider.querySelector('[data-hero-previous]');
+    const nextButton = slider.querySelector('[data-hero-next]');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let activeIndex = 0;
+    let timer;
+
+    const showSlide = (index) => {
+        activeIndex = (index + slides.length) % slides.length;
+        slides.forEach((slide, slideIndex) => {
+            slide.hidden = slideIndex !== activeIndex;
+        });
+        dots.forEach((dot, dotIndex) => {
+            dot.setAttribute('aria-current', String(dotIndex === activeIndex));
+        });
+    };
+
+    const stopAutoplay = () => {
+        window.clearInterval(timer);
+        timer = undefined;
+    };
+
+    const startAutoplay = () => {
+        if (reducedMotion || document.hidden || timer !== undefined) return;
+        timer = window.setInterval(() => showSlide(activeIndex + 1), 5000);
+    };
+
+    previousButton.addEventListener('click', () => showSlide(activeIndex - 1));
+    nextButton.addEventListener('click', () => showSlide(activeIndex + 1));
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => showSlide(index));
+    });
+
+    slider.addEventListener('mouseenter', stopAutoplay);
+    slider.addEventListener('mouseleave', startAutoplay);
+    slider.addEventListener('focusin', stopAutoplay);
+    slider.addEventListener('focusout', (event) => {
+        if (!slider.contains(event.relatedTarget)) startAutoplay();
+    });
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopAutoplay();
+        else startAutoplay();
+    });
+
+    startAutoplay();
+}
+
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', () => {
     updateCartCount();
     initMobileMenu();
+    initHeroSlider();
     
     // Auth UI Update
     const loginLink = document.getElementById('nav-login');
